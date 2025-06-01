@@ -1,0 +1,83 @@
+.user-list-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 0 15px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.user-list-container h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+.user-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.user-item {
+  background-color: #f9f9f9;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  transition: box-shadow 0.3s ease;
+}
+
+.user-item:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.user-link {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.user-avatar {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  margin-right: 20px;
+  position: relative;
+}
+
+.avatar-img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #1976d2;
+}
+
+.avatar-placeholder {
+  width: 56px;
+  height: 56px;
+  background-color: #1976d2;
+  color: white;
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 56px;
+  text-align: center;
+  user-select: none;
+}
+
+.user-info {
+  flex-grow: 1;
+}
+
+.user-name {
+  margin: 0;
+  font-size: 18px;
+  color: #222;
+}
+
+.user-action {
+  font-size: 14px;
+  color: #1976d2;
+  font-weight: 600;
+  user-select: none;
+}
