@@ -1,20 +1,78 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function Login({ onRegister }) {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("")
-  const [lastName, setLastName] = useState("")
+export default function Register({ onRegister }) {
+  const [formData, setFormData] = useState({
+    login_name: '',
+    password: '',
+    confirmPassword: '',
+    first_name: '',
+    last_name: '',
+    location: '',
+    description: '',
+    occupation: ''
+  });
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleRegister = () => {
-    if (username && password && firstName && lastName) {
-      onRegister({ firstName });
-      navigate("/");
-    } else {
-      setError("Please fill in all fields.");
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleRegister = async () => {
+    setError("");
+
+    if (!formData.login_name || !formData.password || !formData.first_name || !formData.last_name) {
+      setError("Please fill in all required fields");
+      return;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:3001/user", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          login_name: formData.login_name,
+          password: formData.password,
+          first_name: formData.first_name,
+          last_name: formData.last_name,
+          location: formData.location,
+          description: formData.description,
+          occupation: formData.occupation
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Registration failed');
+      }
+
+      setFormData({
+        login_name: '',
+        password: '',
+        confirmPassword: '',
+        first_name: '',
+        last_name: '',
+        location: '',
+        description: '',
+        occupation: ''
+      });
+
+      navigate("/login");
+    } catch (err) {
+      setError(err.message);
     }
   };
 
@@ -31,40 +89,82 @@ export default function Login({ onRegister }) {
         </button>
       </div>
       <h2 style={titleStyle}>Register</h2>
+      
       <input
         type="text"
-        value={username}
-        placeholder="Username"
-        onChange={(e) => setUsername(e.target.value)}
+        name="login_name"
+        value={formData.login_name}
+        placeholder="Username *"
+        onChange={handleChange}
         style={inputStyle}
       />
       <input
         type="password"
-        value={password}
-        placeholder="Password"
-        onChange={(e) => setPassword(e.target.value)}
+        name="password"
+        value={formData.password}
+        placeholder="Password *"
+        onChange={handleChange}
+        style={inputStyle}
+      />
+      <input
+        type="password"
+        name="confirmPassword"
+        value={formData.confirmPassword}
+        placeholder="Confirm Password *"
+        onChange={handleChange}
         style={inputStyle}
       />
       <input
         type="text"
-        value={firstName}
-        placeholder="First name"
-        onChange={(e) => setFirstName(e.target.value)}
+        name="first_name"
+        value={formData.first_name}
+        placeholder="First name *"
+        onChange={handleChange}
         style={inputStyle}
       />
       <input
         type="text"
-        value={lastName}
-        placeholder="Last name"
-        onChange={(e) => setLastName(e.target.value)}
+        name="last_name"
+        value={formData.last_name}
+        placeholder="Last name *"
+        onChange={handleChange}
         style={inputStyle}
       />
-      <button onClick={handleRegister} style={buttonStyle}
+      <input
+        type="text"
+        name="location"
+        value={formData.location}
+        placeholder="Location"
+        onChange={handleChange}
+        style={inputStyle}
+      />
+      <input
+        type="text"
+        name="occupation"
+        value={formData.occupation}
+        placeholder="Occupation"
+        onChange={handleChange}
+        style={inputStyle}
+      />
+      <textarea
+        name="description"
+        value={formData.description}
+        placeholder="Description"
+        onChange={handleChange}
+        style={{...inputStyle, minHeight: '100px'}}
+      />
+      
+      <button 
+        onClick={handleRegister} 
+        style={buttonStyle}
         onMouseOver={(e) => (e.target.style.backgroundColor = hoverButtonStyle.backgroundColor)}
-        onMouseOut={(e) => (e.target.style.backgroundColor = buttonStyle.backgroundColor)}>
-        Register
+        onMouseOut={(e) => (e.target.style.backgroundColor = buttonStyle.backgroundColor)}
+      >
+        Register Me
       </button>
+      
       {error && <p style={errorStyle}>{error}</p>}
+      
       <p style={loginTextStyle}>
         Already have an account?{" "}
         <Link to="/login" style={linkStyle}>

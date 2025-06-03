@@ -9,7 +9,7 @@ export default function Login({ onLogin }) {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    if (!username && !password) {
+    if (username === "" || !password === "") {
       setError("Please enter login name and password.");
       return;
     }
@@ -20,6 +20,7 @@ export default function Login({ onLogin }) {
         headers: {
           "Content-Type": "application/json"
         },
+        credentials: 'include',
         body: JSON.stringify({ login_name: username, password }),
       })
       console.log(response)

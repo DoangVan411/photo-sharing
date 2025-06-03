@@ -18,12 +18,43 @@
   margin-bottom: 20px;
   font-size: 28px;
   color: #333;
+  text-align: center;
 }
 
-.user-info {
-  margin-bottom: 12px;
+.user-detail-info {
+  margin: 12px 0;
   font-size: 16px;
   color: #555;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.info-icon {
+  font-size: 20px;
+  min-width: 30px;
+  text-align: center;
+}
+
+.user-detail-description {
+  margin: 25px 0;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.description-title {
+  color: #333;
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.description-text {
+  color: #555;
+  font-size: 15px;
+  line-height: 1.6;
+  white-space: pre-wrap;
 }
 
 .user-detail-button {
@@ -40,7 +71,7 @@
   transition: background-color 0.3s;
 }
 
-.user-button:hover {
+.user-detail-button:hover {
   background-color: #155fa0;
 }
 

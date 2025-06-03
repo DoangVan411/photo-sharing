@@ -6,10 +6,9 @@ function UserList() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    console.log('hehe');
     const fetchUsers = async () => {
       try {
-        const res = await fetch("http://localhost:3001/users");
+        const res = await fetch("http://localhost:3001/user/list");
 
         if (!res.ok) {
           throw new Error("Failed to fetch users");
@@ -33,17 +32,9 @@ function UserList() {
           <li key={user._id} className="user-item">
             <Link to={`/users/${user._id}`} className="user-link">
               <div className="user-avatar">
-                {user.profilePicture ? (
-                  <img
-                    src={user.profilePicture}
-                    alt={`${user.first_name} ${user.last_name}`}
-                    className="avatar-img"
-                  />
-                ) : (
                   <div className="avatar-placeholder">
                     {user.first_name.charAt(0).toUpperCase()}
                   </div>
-                )}
               </div>
 
               <div className="user-info">

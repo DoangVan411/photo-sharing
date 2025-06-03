@@ -32,8 +32,40 @@ function UserDetail() {
                 <h2 className="user-detail-name">
                     {user.first_name} {user.last_name}
                 </h2>
+                
+                {user.location && (
+                    <p className="user-detail-info">
+                        <span className="info-icon">📍</span> {user.location}
+                    </p>
+                )}
+
+                {user.occupation && (
+                    <p className="user-detail-info">
+                        <span className="info-icon">💼</span> {user.occupation}
+                    </p>
+                )}
+
+                {user.address && (
+                    <p className="user-detail-info">
+                        <span className="info-icon">🏠</span> {user.address}
+                    </p>
+                )}
+
+                {user.birthday && (
+                    <p className="user-detail-info">
+                        <span className="info-icon">🎂</span> {new Date(user.birthday).toLocaleDateString()}
+                    </p>
+                )}
+
+                {user.description && (
+                    <div className="user-detail-description">
+                        <h3 className="description-title">About</h3>
+                        <p className="description-text">{user.description}</p>
+                    </div>
+                )}
+
                 <button className="user-detail-button" onClick={handleShowPhotos}>
-                    Xem ảnh của {user.first_name}
+                    Show {user.first_name}'s photos
                 </button>
             </div>
         </div>
