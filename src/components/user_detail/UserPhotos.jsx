@@ -39,10 +39,12 @@ export default function UserPhotos() {
     }
 
     try {
+      const token = localStorage.getItem('token');
       const response = await fetch(`http://localhost:3001/commentsOfPhoto/${photoId}`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         credentials: 'include',
         body: JSON.stringify({ comment: newComment })

@@ -8,25 +8,11 @@ export default function ToolBar({ user, onLogout }) {
   const handleLogout = async () => {
     console.log(user)
     try {
-      const response = await fetch("http://localhost:3001/admin/logout", {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        credentials: 'include',
-      })
-      navigate("/login-register")
-      onLogout()
-      if (!response.ok) {
-        const err = await response.json();
-        console.log(err)
-        return
-      }
-      console.log(response)
-      navigate("/login-register")
-      onLogout()
+      localStorage.removeItem('token');
+      onLogout();
+      navigate("/login-register");
     } catch (err) {
-      console.log("Server error");
+      console.log("Error during logout");
     }
   }
 
@@ -44,8 +30,12 @@ export default function ToolBar({ user, onLogout }) {
     formData.append('image', selectedFile);
 
     try {
+      const token = localStorage.getItem('token');
       const response = await fetch('http://localhost:3001/photos/new', {
         method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
         credentials: 'include',
         body: formData
       });

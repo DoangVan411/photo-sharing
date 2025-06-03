@@ -29,8 +29,9 @@ export default function Login({ onLogin }) {
         setError(err.error || "Login failed");
         return;
       }
-      const user = await response.json();
-      onLogin(user);
+      const data = await response.json();
+      localStorage.setItem('token', data.token);
+      onLogin(data.user);
       navigate("/");
     } catch (err) {
       setError("Server error");
