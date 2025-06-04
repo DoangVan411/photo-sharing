@@ -15,26 +15,26 @@ export default function Login({ onLogin }) {
     }
 
     try {
-      const response = await fetch("http://localhost:3001/admin/login", {
-        method: 'post',
+      const response = await fetch("https://ngl6xs-3001.csb.app/admin/login", {
+        method: "post",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        credentials: 'include',
+        credentials: "include",
         body: JSON.stringify({ login_name: username, password }),
-      })
-      console.log(response)
+      });
+      console.log(response);
       if (!response.ok) {
         const err = await response.json();
         setError(err.error || "Login failed");
         return;
       }
       const data = await response.json();
-      localStorage.setItem('token', data.token);
+      localStorage.setItem("token", data.token);
       onLogin(data.user);
       navigate("/");
     } catch (err) {
-      setError("Server error");
+      setError(err.message);
     }
   };
 
@@ -44,8 +44,12 @@ export default function Login({ onLogin }) {
         <button
           onClick={() => navigate(-1)}
           style={backButtonStyle}
-          onMouseOver={(e) => (e.target.style.backgroundColor = hoverButtonStyle.backgroundColor)}
-          onMouseOut={(e) => (e.target.style.backgroundColor = backButtonStyle.backgroundColor)}
+          onMouseOver={(e) =>
+            (e.target.style.backgroundColor = hoverButtonStyle.backgroundColor)
+          }
+          onMouseOut={(e) =>
+            (e.target.style.backgroundColor = backButtonStyle.backgroundColor)
+          }
         >
           ← Back
         </button>
@@ -65,9 +69,16 @@ export default function Login({ onLogin }) {
         placeholder="Password"
         style={inputStyle}
       />
-      <button onClick={handleLogin} style={buttonStyle}
-        onMouseOver={(e) => (e.target.style.backgroundColor = hoverButtonStyle.backgroundColor)}
-        onMouseOut={(e) => (e.target.style.backgroundColor = buttonStyle.backgroundColor)}>
+      <button
+        onClick={handleLogin}
+        style={buttonStyle}
+        onMouseOver={(e) =>
+          (e.target.style.backgroundColor = hoverButtonStyle.backgroundColor)
+        }
+        onMouseOut={(e) =>
+          (e.target.style.backgroundColor = buttonStyle.backgroundColor)
+        }
+      >
         Login
       </button>
       {error && <p style={errorStyle}>{error}</p>}
@@ -84,7 +95,7 @@ export default function Login({ onLogin }) {
 const containerStyle = {
   maxWidth: "500px",
   margin: "90px auto",
-  marginTop: '100px',
+  marginTop: "100px",
   padding: "30px",
   boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
   borderRadius: "10px",
@@ -94,9 +105,9 @@ const containerStyle = {
 };
 
 const backContainerStyle = {
-  width: '100%',
-  textAlign: 'left'
-}
+  width: "100%",
+  textAlign: "left",
+};
 
 const titleStyle = {
   marginBottom: "20px",
@@ -158,4 +169,3 @@ const linkStyle = {
   textDecoration: "none",
   fontWeight: "600",
 };
-

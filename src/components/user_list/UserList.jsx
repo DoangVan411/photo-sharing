@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import './UserList.css';
+import "./UserList.css";
 
 function UserList() {
   const [users, setUsers] = useState([]);
@@ -8,7 +8,7 @@ function UserList() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch("http://localhost:3001/user/list");
+        const res = await fetch("https://ngl6xs-3001.csb.app/user/list");
 
         if (!res.ok) {
           throw new Error("Failed to fetch users");
@@ -32,9 +32,9 @@ function UserList() {
           <li key={user._id} className="user-item">
             <Link to={`/users/${user._id}`} className="user-link">
               <div className="user-avatar">
-                  <div className="avatar-placeholder">
-                    {user.first_name.charAt(0).toUpperCase()}
-                  </div>
+                <div className="avatar-placeholder">
+                  {user.first_name.charAt(0).toUpperCase()}
+                </div>
               </div>
 
               <div className="user-info">

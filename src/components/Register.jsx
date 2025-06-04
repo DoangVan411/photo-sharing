@@ -3,30 +3,35 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function Register({ onRegister }) {
   const [formData, setFormData] = useState({
-    login_name: '',
-    password: '',
-    confirmPassword: '',
-    first_name: '',
-    last_name: '',
-    location: '',
-    description: '',
-    occupation: ''
+    login_name: "",
+    password: "",
+    confirmPassword: "",
+    first_name: "",
+    last_name: "",
+    location: "",
+    description: "",
+    occupation: "",
   });
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleRegister = async () => {
     setError("");
 
-    if (!formData.login_name || !formData.password || !formData.first_name || !formData.last_name) {
+    if (
+      !formData.login_name ||
+      !formData.password ||
+      !formData.first_name ||
+      !formData.last_name
+    ) {
       setError("Please fill in all required fields");
       return;
     }
@@ -37,10 +42,10 @@ export default function Register({ onRegister }) {
     }
 
     try {
-      const response = await fetch("http://localhost:3001/user", {
-        method: 'POST',
+      const response = await fetch("https://ngl6xs-3001.csb.app/user", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           login_name: formData.login_name,
@@ -49,25 +54,25 @@ export default function Register({ onRegister }) {
           last_name: formData.last_name,
           location: formData.location,
           description: formData.description,
-          occupation: formData.occupation
-        })
+          occupation: formData.occupation,
+        }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Registration failed');
+        throw new Error(data.error || "Registration failed");
       }
 
       setFormData({
-        login_name: '',
-        password: '',
-        confirmPassword: '',
-        first_name: '',
-        last_name: '',
-        location: '',
-        description: '',
-        occupation: ''
+        login_name: "",
+        password: "",
+        confirmPassword: "",
+        first_name: "",
+        last_name: "",
+        location: "",
+        description: "",
+        occupation: "",
       });
 
       navigate("/login");
@@ -82,14 +87,18 @@ export default function Register({ onRegister }) {
         <button
           onClick={() => navigate(-1)}
           style={backButtonStyle}
-          onMouseOver={(e) => (e.target.style.backgroundColor = hoverButtonStyle.backgroundColor)}
-          onMouseOut={(e) => (e.target.style.backgroundColor = backButtonStyle.backgroundColor)}
+          onMouseOver={(e) =>
+            (e.target.style.backgroundColor = hoverButtonStyle.backgroundColor)
+          }
+          onMouseOut={(e) =>
+            (e.target.style.backgroundColor = backButtonStyle.backgroundColor)
+          }
         >
           ← Back
         </button>
       </div>
       <h2 style={titleStyle}>Register</h2>
-      
+
       <input
         type="text"
         name="login_name"
@@ -151,20 +160,24 @@ export default function Register({ onRegister }) {
         value={formData.description}
         placeholder="Description"
         onChange={handleChange}
-        style={{...inputStyle, minHeight: '100px'}}
+        style={{ ...inputStyle, minHeight: "100px" }}
       />
-      
-      <button 
-        onClick={handleRegister} 
+
+      <button
+        onClick={handleRegister}
         style={buttonStyle}
-        onMouseOver={(e) => (e.target.style.backgroundColor = hoverButtonStyle.backgroundColor)}
-        onMouseOut={(e) => (e.target.style.backgroundColor = buttonStyle.backgroundColor)}
+        onMouseOver={(e) =>
+          (e.target.style.backgroundColor = hoverButtonStyle.backgroundColor)
+        }
+        onMouseOut={(e) =>
+          (e.target.style.backgroundColor = buttonStyle.backgroundColor)
+        }
       >
         Register Me
       </button>
-      
+
       {error && <p style={errorStyle}>{error}</p>}
-      
+
       <p style={loginTextStyle}>
         Already have an account?{" "}
         <Link to="/login" style={linkStyle}>
@@ -178,7 +191,7 @@ export default function Register({ onRegister }) {
 const containerStyle = {
   maxWidth: "500px",
   margin: "90px auto",
-  marginTop: '100px',
+  marginTop: "100px",
   padding: "30px",
   boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
   borderRadius: "10px",
@@ -188,9 +201,9 @@ const containerStyle = {
 };
 
 const backContainerStyle = {
-  width: '100%',
-  textAlign: 'left'
-}
+  width: "100%",
+  textAlign: "left",
+};
 
 const titleStyle = {
   marginBottom: "20px",
@@ -252,4 +265,3 @@ const linkStyle = {
   textDecoration: "none",
   fontWeight: "600",
 };
-

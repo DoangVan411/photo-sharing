@@ -1,7 +1,7 @@
 export default async function fetchUserData(endpoint) {
   try {
-    console.log('hehe')
-    const response = await fetch(`http://localhost:3001${endpoint}`);
+    console.log("hehe");
+    const response = await fetch(`https://ngl6xs-3001.csb.app${endpoint}`);
     if (!response.ok) {
       throw new Error("Failed to fetch data");
     }
